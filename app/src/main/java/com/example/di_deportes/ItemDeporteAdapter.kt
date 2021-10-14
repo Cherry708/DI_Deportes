@@ -21,10 +21,12 @@ class ItemDeporteAdapter(var items: ArrayList<ItemDeporte>) : RecyclerView.Adapt
             imagen = itemView.findViewById(R.id.ivImagenDeporte)
         }
 
-        fun bindTarjeta(t: ItemDeporte, onClick: (View) -> Unit) = with(itemView) {
-            checkBoxNombre.setText(t.checkBoxNombre.text)
-            imagen.setImageResource(t.imagen)
-            setOnClickListener { onClick(itemView) }
+        fun bindTarjeta(item: ItemDeporte, onClick: (View) -> Unit) = with(itemView) {
+            checkBoxNombre.setText(item.nombre)
+            imagen.setImageResource(item.imagen)
+            checkBoxNombre.setOnClickListener {
+                item.pulsado = checkBoxNombre.isChecked
+            }
         }
     }
 

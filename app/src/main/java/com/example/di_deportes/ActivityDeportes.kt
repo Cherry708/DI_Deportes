@@ -2,7 +2,6 @@ package com.example.di_deportes
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,32 +18,15 @@ class ActivityDeportes : AppCompatActivity() {
         setContentView(binding.root)
 
         val listaItems = ArrayList<ItemDeporte>()
-        listaItems.add(ItemDeporte(R.drawable.baloncesto,CheckBox(this)))
-        listaItems.get(0).checkBoxNombre.setText(R.string.deporte1)
-
-        listaItems.add(ItemDeporte(R.drawable.beisbol,CheckBox(this)))
-        listaItems.get(1).checkBoxNombre.setText(R.string.deporte2)
-
-        listaItems.add(ItemDeporte(R.drawable.ciclismo,CheckBox(this)))
-        listaItems.get(2).checkBoxNombre.setText(R.string.deporte3)
-
-        listaItems.add(ItemDeporte(R.drawable.futbol,CheckBox(this)))
-        listaItems.get(3).checkBoxNombre.setText(R.string.deporte4)
-
-        listaItems.add(ItemDeporte(R.drawable.golf,CheckBox(this)))
-        listaItems.get(4).checkBoxNombre.setText(R.string.deporte5)
-
-        listaItems.add(ItemDeporte(R.drawable.hipica,CheckBox(this)))
-        listaItems.get(5).checkBoxNombre.setText(R.string.deporte6)
-
-        listaItems.add(ItemDeporte(R.drawable.natacion,CheckBox(this)))
-        listaItems.get(6).checkBoxNombre.setText(R.string.deporte7)
-
-        listaItems.add(ItemDeporte(R.drawable.pinpon,CheckBox(this)))
-        listaItems.get(7).checkBoxNombre.setText(R.string.deporte8)
-
-        listaItems.add(ItemDeporte(R.drawable.tenis,CheckBox(this)))
-        listaItems.get(8).checkBoxNombre.setText(R.string.deporte9)
+        listaItems.add(ItemDeporte(R.drawable.baloncesto,R.string.deporte1,false))
+        listaItems.add(ItemDeporte(R.drawable.beisbol,R.string.deporte2,false))
+        listaItems.add(ItemDeporte(R.drawable.ciclismo,R.string.deporte3,false))
+        listaItems.add(ItemDeporte(R.drawable.futbol,R.string.deporte4,false))
+        listaItems.add(ItemDeporte(R.drawable.golf,R.string.deporte5,false))
+        listaItems.add(ItemDeporte(R.drawable.hipica,R.string.deporte6,false))
+        listaItems.add(ItemDeporte(R.drawable.natacion,R.string.deporte7,false))
+        listaItems.add(ItemDeporte(R.drawable.pinpon,R.string.deporte8,false))
+        listaItems.add(ItemDeporte(R.drawable.tenis,R.string.deporte9,false))
 
 
         val recView = findViewById<RecyclerView>(R.id.rvDeporte)
@@ -63,10 +45,34 @@ class ActivityDeportes : AppCompatActivity() {
             Toast.makeText(this@ActivityDeportes, "Ignorar"+listaItems[recView.getChildAdapterPosition(it)], Toast.LENGTH_LONG).show()
         }
         fabSeleccion.setOnClickListener{
-            Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
+            var mostrarJuegosSeleccionados = ""
+            val listaSeleccionados = ArrayList<String>()
+
             for (item in listaItems)
-                if (item.checkBoxNombre.isChecked)
-                    Toast.makeText(this@ActivityDeportes,"asdf"+listaItems[recView.getChildAdapterPosition(it)].checkBoxNombre.text,Toast.LENGTH_SHORT).show()
+                if (item.pulsado)
+                    listaSeleccionados.add(resources.getString(item.nombre))
+            if (listaSeleccionados.isEmpty())
+                mostrarJuegosSeleccionados = "Debes seleccionar un juego."
+            else {
+                mostrarJuegosSeleccionados = "Selección: "
+                for (nombre in listaSeleccionados) {
+                    //Ultimo|Unico, lleva punto
+                    if (listaSeleccionados.indexOf(nombre) == listaSeleccionados.size - 1)
+                        mostrarJuegosSeleccionados += "${nombre}."
+                    //Penultimo, lleva y
+                    else if (listaSeleccionados.indexOf(nombre) == listaSeleccionados.size - 2)
+                        mostrarJuegosSeleccionados += "${nombre} y "
+                    //Ninguno, lleva coma
+                    else mostrarJuegosSeleccionados += "${nombre}, "
+                }
+            }
+
+
+            Toast.makeText(this,mostrarJuegosSeleccionados, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@ActivityDeportes,nombre, Toast.LENGTH_SHORT).show()
+
+
+
         }
     }
 }
