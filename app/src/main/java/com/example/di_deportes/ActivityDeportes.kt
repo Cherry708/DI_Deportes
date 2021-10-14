@@ -52,7 +52,7 @@ class ActivityDeportes : AppCompatActivity() {
                 if (item.pulsado)
                     listaSeleccionados.add(resources.getString(item.nombre))
             if (listaSeleccionados.isEmpty())
-                mostrarJuegosSeleccionados = "Debes seleccionar un juego."
+                mostrarJuegosSeleccionados = "Debes seleccionar un deporte."
             else {
                 mostrarJuegosSeleccionados = "Selección: "
                 for (nombre in listaSeleccionados) {
